@@ -1,11 +1,11 @@
 <?php
 /*
-PayBrick PHP Webhook Receiver
+Paybrick PHP Webhook Receiver
 Author: Ralph van der Sanden
 
-Workflow:
+INTRO:
 1. A webhook has been sent with JSON data.
-2. This script reads the JSON data and sets easy to read variables.
+2. This script reads the JSON data.
 3. By looking at the event ($action) you'll know which values to expect (please see the "Important" section below) and what to do with it.
 4. Paste your code to process/store the webhook data
 5. If processing is succesfull then echo [webhook_received] to let us know you received and processed the webhook.
@@ -16,7 +16,7 @@ https://www.paybrick.com/docs/webhooks
 
 */
 
-require_once("../PayBrick/config.php");
+require_once("../../Paybrick/http_api_request.php");
 
 // Load posted json data:
 $json = file_get_contents('php://input');
@@ -49,24 +49,22 @@ if(is_numeric($json['merchant_id']) && is_numeric($json['site_id']))
 	$address_line2 = $json['address_line2'];
 	$zipcode = $json['zipcode'];
 	$city = $json['city'];
-	$state = $json['state'];
+	$state = $json['stateprovince'];
 	$vatnumber = $json['vatnumber'];
 	$products = $json['products'];
 	$gateway = $json['gateway'];
-	$paymentmethod = $json['paymentmethod'];
+	$paymentmethod = $json['payment_method'];
 	$refund = $json['refund'];
 	$proration = $json['proration'];
 	$previous_balance = $json['previous_balance'];
 	$current_balance = $json['current_balance'];
-	$previous = $json['previous'];
-	$current = $json['current'];
 	$ip = $json['ip'];
 	
 	// Extract products:
 	if(isset($products)) {
 	$product_list = explode(",",$products); // 1000,1001,1002 etc.
 	
-	// TIP: you can use a for loop to cycle through the products
+	// You can use a for loop to cycle through the products
 	}
 	
 	
