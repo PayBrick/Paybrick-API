@@ -1,4 +1,4 @@
-# Paybrick-API
+# Paybrick PHP API
 
 <b>Paybrick/http_api_request.php:</b><br>
 The file that makes the connection and decodes the JSON data.
